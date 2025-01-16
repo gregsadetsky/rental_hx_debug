@@ -4,7 +4,7 @@ from flask import Flask, g, redirect, render_template, request
 
 app = Flask(__name__)
 
-DATABASE = "/Users/g/Desktop/rental_hx/database.db"
+DATABASE = "/sqlitedata/database.db"
 
 
 def get_db():
