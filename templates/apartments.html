@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>NYC apartments</title>
+  </head>
+  <body>
+    <h1>Apartments</h1>
+    {% for apartment in apartments %}
+        <div class='apartment'>
+            <p>{{ apartment['housenumber'] }} {{ apartment['street'] }}, {{ apartment['borough'] }}</p>
+        </div>
+    {% endfor %}
+  </body>
+</html>

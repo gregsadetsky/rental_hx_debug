@@ -1,0 +1,29 @@
+
+body {
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    color: #0a0a0a;
+  }
+
+input {
+    border: 1px solid #0a0a0a;
+    margin: 0;
+    width: 60%;
+    font-size: 1.5rem;
+    height: 3rem;
+    padding-left: 0.7rem;
+  }
+
+#addresses option {
+    cursor: pointer;
+    line-height: 1.6;
+    background-color: white;
+}
+
+*:focus {
+    outline: none;
+}
+
+/* option {
+    background-color: white;
+} */

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>NYC apartment records</title>
+  </head>
+  <body>
+    <h3>Records</h3>
+    {% for record in records %}
+        <div class='record'>
+            <p>{{ record['year'] }} {{ record['status'] }}, {{ record['apartment_id'] }}</p>
+        </div>
+    {% endfor %}
+
+    <h3>Add a Record</h3>
+      <form action="/add-record/{{ apartment_id }}" method="post">
+        <label for="year">Choose a year:</label>
+        <select id="year" name="year">
+          {% for year in range (1984, 2025) %}
+            <option value="{{year}}">{{year}}</option>
+          {% endfor %}
+        </select>
+
+        <label for="status">Apartment Status:</label>
+        <select id="status" name="status">
+          <option value="rs">RS - Rent Stabilized</option>
+          <option value="rc">RC - Rent Controlled</option>
+          <option value="rsts">RS-TS - Temporarily Exempt</option>
+          <option value="pe">PE - Permanently Exempt</option>
+          <option value="rsv">RS-V - Vacant</option>
+          <option value="rsnh">RS-NH - Not For Profit Homeless Unit</option>
+        </select>
+
+        <input type="submit">
+      </form>
+  </body>
+</html>

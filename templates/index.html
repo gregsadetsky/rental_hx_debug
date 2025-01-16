@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>NYC address search</title>
+    <link href="/static/css/index.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <form action="/search-handling" method="post">
+        <p>
+          <input id="search" name="address_search" placeholder="Search for an address..." list="addresses" autocomplete="off" />
+          <datalist id="addresses"></datalist>
+        </p>
+    </form>
+
+    <script>
+        function getValue() {
+            var input = document.getElementById("search");
+            var input_value = input.value;
+            // console.log(input.value);
+            return input_value
+        }
+
+        async function sendValue() {
+            var user_input = getValue();
+            const url = "https://geosearch.planninglabs.nyc/v2/autocomplete?text="+user_input;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                throw new Error(`Response status: ${response.status}`);
+                }
+
+                const json = await response.json();
+                // console.log(json);
+                return json
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+
+        async function parseData() {
+            var address_data = await sendValue();
+            const address_labels = []
+            address_data.features.forEach(element => {
+                address_labels.push(element.properties.label)
+            });
+            // var label = address_data.features[0].properties.label
+            // console.log(address_labels);
+            return address_labels
+        }
+
+        async function createDropdown() {
+            var address_list = await parseData()
+            if (address_list) {
+                var datalist = document.getElementById("addresses");
+                datalist.replaceChildren();
+                console.log(address_list)
+                address_list.forEach(address => {
+                    var datalist = document.getElementById("addresses");
+                    const option = document.createElement('option');
+                    option.value = address;
+                    datalist.appendChild(option);
+                });
+            }
+        }
+
+        var text_box = document.getElementById("search");
+        var addresses = document.getElementById("addresses");
+        text_box.addEventListener('input', function(event) {
+            // console.log(event.target.value)
+            addresses.innerHTML = '';
+            createDropdown();
+        });
+
+    </script>
+    
+  </body>
+</html>
